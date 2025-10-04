@@ -1,0 +1,18 @@
+.navbar-custom {
+  background-color: #2e3a4a; /* Custom dark blue */
+  color: #79a7e4;
+  min-height: 56px;
+}
+.navbar-custom .navbar-brand {
+  color: #ffc107; /* Amber color for title */
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+.navbar-custom .user-info {
+  color: #fff;
+  font-size: 1rem;
+  margin-right: 8px;
+}
+.navbar-custom .rounded-circle {
+  border: 2px solid #ffc107;
+}

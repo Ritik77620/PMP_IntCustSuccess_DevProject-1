@@ -1,0 +1,78 @@
+<!-- Desktop Sidebar -->
+<div class="sidebar" [class.sidebar--collapsed]="collapsed">
+  <!-- Header / Logo -->
+  <div class="sidebar__header">
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">PMP</div>
+      <span class="sidebar__title" *ngIf="!collapsed">
+        Project Management System
+      </span>
+    </div>
+    <button 
+      class="sidebar__toggle sidebar__toggle--inner" 
+      (click)="onToggleSidebar()"
+      [attr.aria-label]="collapsed ? 'Expand sidebar' : 'Collapse sidebar'">
+      ☰
+    </button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="sidebar__nav">
+    <div class="sidebar__nav-content">
+    <a
+  *ngFor="let item of navigationItems; trackBy: trackByTitle"
+  [routerLink]="item.route"
+  routerLinkActive="sidebar__link--active"
+  [routerLinkActiveOptions]="{ exact: true }"
+  class="sidebar__link"
+  (click)="collapsed = true"
+>
+  <span class="sidebar__link-text">{{ item.title }}</span>
+  <span class="sidebar__link-badge" *ngIf="item.badge">
+    {{ item.badge }}
+  </span>
+</a>
+
+    </div>
+  </nav>
+
+  <!-- User Menu -->
+  <div class="sidebar__user-menu">
+    <a
+      *ngFor="let item of userItems; trackBy: trackByTitle"
+      [routerLink]="item.route"
+      class="sidebar__user-link"
+      (click)="collapsed = true"
+    >
+      <span class="sidebar__user-text">{{ item.title }}</span>
+    </a>
+
+    <button (click)="onLogout()" class="sidebar__logout-btn">
+      <span class="sidebar__logout-text">Sign Out</span>
+    </button>
+  </div>
+
+  <!-- User Info -->
+  <div class="sidebar__user-info">
+    <div class="sidebar__user-avatar">{{ user.initials }}</div>
+    <div class="sidebar__user-details">
+      <div class="sidebar__user-name">{{ user.name }}</div>
+      <div class="sidebar__user-designation">{{ user.designation }}</div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile Overlay -->
+<div 
+  class="sidebar__overlay" 
+  *ngIf="!collapsed"
+  (click)="onToggleSidebar()">
+</div>
+
+<!-- Mobile Toggle Button -->
+<button
+  class="sidebar__mobile-toggle"
+  (click)="onToggleSidebar()"
+  [attr.aria-label]="collapsed ? 'Open sidebar' : 'Close sidebar'">
+  ☰
+</button>
