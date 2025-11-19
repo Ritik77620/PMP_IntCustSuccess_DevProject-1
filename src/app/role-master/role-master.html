@@ -1,0 +1,76 @@
+<div class="p-6 bg-gray-50 min-h-screen">
+  <h1 class="text-3xl font-bold mb-6">Role Master</h1>
+
+  <button class="btn-primary mb-4" (click)="showForm = true">+ Add Role</button>
+
+  <!-- Add/Edit Role Form -->
+  @if (showForm) {
+    <div class="card">
+      <h2 class="card-title">{{ editingIndex !== null ? 'Edit Role' : 'Add New Role' }}</h2>
+
+      <div class="mb-3">
+        <label class="label">Role Name</label>
+        <input
+          [(ngModel)]="form.name"
+          placeholder="Enter Role Name"
+          class="input"
+        />
+      </div>
+
+      <!-- Permissions Table -->
+      <div class="permissions mb-4">
+        @for (m of modules; track m) {
+          <div class="mb-3">
+            <h4 class="font-semibold mb-2">{{ m }}</h4>
+            <div class="flex gap-4">
+              @for (a of actions; track a) {
+                <label class="flex items-center gap-1">
+                  <input
+                    type="checkbox"
+                    [checked]="isChecked(m, a)"
+                    (change)="togglePermission(m, a)"
+                  />
+                  <span class="capitalize">{{ a }}</span>
+                </label>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="flex gap-2">
+        <button class="btn-primary" (click)="saveRole()">Save</button>
+        <button class="btn-secondary" (click)="resetForm()">Cancel</button>
+      </div>
+    </div>
+  }
+
+  <!-- Roles List -->
+  <div class="mt-6">
+    <h2 class="text-2xl font-semibold mb-4">Roles List</h2>
+
+    @if (roles.length === 0) {
+      <div class="text-gray-500">No roles created yet.</div>
+    }
+
+    @for (role of roles; track role.name || $index; let i = $index) {
+      <div class="card mb-3">
+        <div class="flex justify-between">
+          <div>
+            <b>{{ role.name }}</b>
+            @for (p of role.permissions; track p.module) {
+              <div class="text-sm text-gray-700">
+                {{ p.module }}: <i>{{ p.actions.join(', ') }}</i>
+              </div>
+            }
+          </div>
+
+          <div class="flex gap-2">
+            <button class="btn-small" (click)="editRole(i)">Edit</button>
+            <button class="btn-danger" (click)="deleteRole(i)">Delete</button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

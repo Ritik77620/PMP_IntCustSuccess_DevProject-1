@@ -1,0 +1,260 @@
+<div class="space-y-6 p-4">
+  <h1 class="text-2xl font-bold">Issue & Requirement Tracker</h1>
+
+  <!-- Stats -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+    <div class="bg-gray-200 shadow-sm rounded-lg p-4 text-center">
+      <p class="text-sm text-gray-500">Total Tasks</p>
+      <p class="text-2xl font-bold">{{ totalTasks }}</p>
+    </div>
+    <div class="bg-yellow-200 shadow-sm rounded-lg p-4 text-center">
+      <p class="text-sm text-yellow-700">Open</p>
+      <p class="text-2xl font-bold text-yellow-700">{{ openTasks }}</p>
+    </div>
+    <div class="bg-blue-200 shadow-sm rounded-lg p-4 text-center">
+      <p class="text-sm text-blue-700">In Progress</p>
+      <p class="text-2xl font-bold text-blue-700">{{ inProgressTasks }}</p>
+    </div>
+    <div class="bg-green-200 shadow-sm rounded-lg p-4 text-center">
+      <p class="text-sm text-green-700">Closed</p>
+      <p class="text-2xl font-bold text-green-700">{{ closedTasks }}</p>
+    </div>
+  </div>
+
+  <button (click)="onAddNew()" 
+          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+    + Add New Entry
+  </button>
+
+  <!-- Add/Edit Form -->
+  <div *ngIf="showForm" class="p-8 bg-white rounded-xl shadow-lg max-w-4xl mx-auto">
+    <h2 class="text-xl font-semibold mb-6 text-gray-800">Add / Edit Task</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Assigned To -->
+      <div class="flex flex-col">
+        <label class="mb-2 text-sm font-medium text-gray-700">Assigned To</label>
+        <input
+          type="text"
+          name="assignedTo"
+          [value]="form.assignedTo"
+          (input)="onFieldChange('assignedTo', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        />
+      </div>
+
+      <!-- Type -->
+      <div class="flex flex-col">
+        <label class="mb-2 text-sm font-medium text-gray-700">Type</label>
+        <select
+          name="type"
+          [value]="form.type"
+          (change)="onFieldChange('type', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        >
+          <option value="">Select Type</option>
+          <option value="Issue">Issue</option>
+          <option value="Requirement">Requirement</option>
+        </select>
+      </div>
+
+      <!-- Client -->
+      <div class="flex flex-col">
+        <label class="mb-2 text-sm font-medium text-gray-700">Client</label>
+        <input
+          type="text"
+          name="client"
+          [value]="form.client"
+          (input)="onFieldChange('client', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        />
+      </div>
+
+      <!-- Issue / Requirement -->
+      <div class="flex flex-col">
+        <label class="mb-2 text-sm font-medium text-gray-700">Issue / Requirement</label>
+        <input
+          type="text"
+          name="issue"
+          [value]="form.issue"
+          (input)="onFieldChange('issue', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        />
+      </div>
+
+      <!-- Produce Step -->
+      <div class="flex flex-col">
+        <label class="mb-2 text-sm font-medium text-gray-700">Produce Step</label>
+        <input
+          type="text"
+          name="produceStep"
+          [value]="form.produceStep"
+          (input)="onFieldChange('produceStep', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        />
+      </div>
+
+      <!-- Sample Data -->
+      <div class="flex flex-col">
+        <label class="mb-2 text-sm font-medium text-gray-700">Sample Data</label>
+        <input
+          type="text"
+          name="sampleData"
+          [value]="form.sampleData"
+          (input)="onFieldChange('sampleData', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        />
+      </div>
+
+      <!-- Acceptance Criteria -->
+      <div class="flex flex-col md:col-span-2">
+        <label class="mb-2 text-sm font-medium text-gray-700">Acceptance Criteria</label>
+        <input
+          type="text"
+          name="acceptanceCriteria"
+          [value]="form.acceptanceCriteria"
+          (input)="onFieldChange('acceptanceCriteria', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        />
+      </div>
+
+      <!-- Status -->
+      <div class="flex flex-col">
+        <label class="mb-2 text-sm font-medium text-gray-700">Status</label>
+        <select
+          name="status"
+          [value]="form.status"
+          (change)="onFieldChange('status', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        >
+          <option value="">Select Status</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Closed">Closed</option>
+        </select>
+      </div>
+
+      <!-- Expected Closure Date -->
+      <div class="flex flex-col">
+        <label class="mb-2 text-sm font-medium text-gray-700">Expected Closure Date</label>
+        <input
+          type="date"
+          name="expectedClosureDate"
+          [value]="form.expectedClosureDate"
+          (input)="onFieldChange('expectedClosureDate', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        />
+      </div>
+
+      <!-- Actual Closure Date -->
+      <div class="flex flex-col">
+        <label class="mb-2 text-sm font-medium text-gray-700">Actual Closure Date</label>
+        <input
+          type="date"
+          name="actualClosureDate"
+          [value]="form.actualClosureDate"
+          (input)="onFieldChange('actualClosureDate', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        />
+      </div>
+
+      <!-- Testing Status -->
+      <div class="flex flex-col">
+        <label class="mb-2 text-sm font-medium text-gray-700">Testing Status</label>
+        <input
+          type="text"
+          name="testingStatus"
+          [value]="form.testingStatus"
+          (input)="onFieldChange('testingStatus', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        />
+      </div>
+
+      <!-- Testing Done By -->
+      <div class="flex flex-col">
+        <label class="mb-2 text-sm font-medium text-gray-700">Testing Done By</label>
+        <input
+          type="text"
+          name="testingDoneBy"
+          [value]="form.testingDoneBy"
+          (input)="onFieldChange('testingDoneBy', $any($event.target).value)"
+          class="w-full rounded-lg border border-gray-300 p-3 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
+        />
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-4 mt-8">
+      <button
+        (click)="onSave()"
+        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+      >
+        Save
+      </button>
+      <button
+        (click)="onCancel()"
+        class="px-6 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+
+  <!-- Task Table -->
+  <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-100">
+            <th class="p-3 text-left border-b font-semibold text-gray-700">RAISED DATE</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">ASSIGNED TO</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">TYPE</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">CLIENT</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">ISSUE/REQUIREMENT</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">PRODUCE STEP</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">SAMPLE DATA</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">ACCEPTANCE CRITERIA</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">STATUS</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">EXPECTED CLOSURE DATE</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">ACTUAL CLOSURE DATE</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">TESTING STATUS</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">TESTING DONE BY</th>
+            <th class="p-3 text-left border-b font-semibold text-gray-700">ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of tasks" class="border-b hover:bg-gray-50">
+            <td class="p-3">{{ formatDate(task.raisedDate) }}</td>
+            <td class="p-3">{{ task.assignedTo }}</td>
+            <td class="p-3">{{ task.type }}</td>
+            <td class="p-3">{{ task.client }}</td>
+            <td class="p-3">{{ task.issue }}</td>
+            <td class="p-3">{{ task.produceStep }}</td>
+            <td class="p-3">{{ task.sampleData }}</td>
+            <td class="p-3">{{ task.acceptanceCriteria }}</td>
+            <td class="p-3">{{ task.status }}</td>
+            <td class="p-3">{{ formatDate(task.expectedClosureDate) }}</td>
+            <td class="p-3">{{ formatDate(task.actualClosureDate) }}</td>
+            <td class="p-3">{{ task.testingStatus }}</td>
+            <td class="p-3">{{ task.testingDoneBy }}</td>
+            <td class="p-3">
+              <div class="flex gap-2">
+                <button
+                  (click)="onEdit(task)"
+                  class="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-gray-100 transition"
+                >
+                  Edit
+                </button>
+                <button
+                  (click)="onDelete(task._id)"
+                  class="px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700 transition"
+                >
+                  Delete
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

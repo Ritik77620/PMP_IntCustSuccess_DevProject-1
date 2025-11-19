@@ -1,16 +1,10 @@
-import { Component, signal } from '@angular/core'; 
-import { HeaderComponent } from '../pages/header/header.components';
-import { SidebarComponent } from './sidebar/sidebar/sidebar';
-
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-imports: [HeaderComponent, SidebarComponent],
-
-  templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  imports: [RouterOutlet],
+  template: `<router-outlet></router-outlet>`,
 })
-export class AppComponent {
-  protected readonly title = signal('PMS_System');
-}
+export class AppComponent {}

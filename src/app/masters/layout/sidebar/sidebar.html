@@ -1,0 +1,44 @@
+<!-- Overlay -->
+<div
+  class="sidebar-overlay"
+  [class.active]="sidebarOpen"
+  (click)="closeSidebar()"
+></div>
+
+<!-- Sidebar -->
+<aside class="sidebar" [class.open]="sidebarOpen">
+  <div class="sidebar-header">
+    <h3>Menu</h3>
+    <button class="close-sidebar" (click)="closeSidebar()">&times;</button>
+  </div>
+
+  <nav class="sidebar-nav">
+    <ul class="nav-menu">
+      <li><a routerLink="/dashboard" routerLinkActive="active" (click)="closeSidebar()">Dashboard</a></li>
+      <li><a routerLink="/projects" routerLinkActive="active" (click)="closeSidebar()">Projects</a></li>
+      <li><a routerLink="/ticket" routerLinkActive="active" (click)="closeSidebar()">Ticket Tracker</a></li>
+      <li><a routerLink="/task-tracker" routerLinkActive="active" (click)="closeSidebar()">Task Tracker</a></li>
+      <li><a routerLink="/masters" routerLinkActive="active" (click)="closeSidebar()">Master</a></li>
+      <li><a routerLink="/settings" routerLinkActive="active" (click)="closeSidebar()">Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-profile">
+      <button class="signout-btn" (click)="logout()">Sign Out</button>
+      <div class="avatar-container small">
+        <img
+          [src]="userAvatar"
+          alt="User Avatar"
+          class="user-avatar"
+          onerror="this.style.display='none'"
+        />
+        <div class="avatar-fallback" *ngIf="!userAvatar">RR</div>
+      </div>
+      <div class="user-details">
+        <span class="user-name">{{ username }}</span>
+        <span class="user-role">Administrator</span>
+      </div>
+    </div>
+  </div>
+</aside>

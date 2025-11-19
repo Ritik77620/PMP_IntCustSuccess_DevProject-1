@@ -1,0 +1,99 @@
+<div class="project-master-container">
+  <h2 class="project-header text-2xl font-bold">Project Master</h2>
+
+  <button 
+    mat-raised-button 
+    color="primary" 
+    class="add-project-btn"
+    (click)="addNew()">
+    + Add New Project
+  </button>
+
+  <div *ngIf="showForm" class="form-container">
+    <h3 class="form-title">
+      {{ form.value._id ? 'Edit Project' : 'Add New Project' }}
+    </h3>
+
+    <form [formGroup]="form">
+      <mat-form-field 
+        appearance="outline" 
+        class="custom-form-field">
+        <mat-label>Project Name</mat-label>
+        <input 
+          matInput 
+          formControlName="projectName" 
+          placeholder="Enter project name" />
+      </mat-form-field>
+
+      <mat-form-field 
+        appearance="outline" 
+        class="custom-form-field">
+        <mat-label>Description</mat-label>
+        <input 
+          matInput 
+          formControlName="description" 
+          placeholder="Enter description" />
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button 
+          mat-raised-button 
+          color="primary" 
+          class="save-btn"
+          (click)="saveProject()">
+          Save
+        </button>
+        <button 
+          mat-raised-button 
+          color="warn" 
+          class="cancel-btn"
+          (click)="cancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="table-container">
+    <table 
+      mat-table 
+      [dataSource]="projects" 
+      class="custom-table mat-elevation-z8">
+      
+      <ng-container matColumnDef="projectName">
+        <th mat-header-cell *matHeaderCellDef> Project Name </th>
+        <td mat-cell *matCellDef="let project"> {{ project.projectName }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let project"> {{ project.description }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let project">
+          <div class="action-buttons">
+            <button 
+              mat-button 
+              color="accent" 
+              class="edit-btn"
+              (click)="editProject(project)">
+              Edit
+            </button>
+            <button 
+              mat-button 
+              color="warn" 
+              class="delete-btn"
+              (click)="deleteProject(project._id!)">
+              Delete
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

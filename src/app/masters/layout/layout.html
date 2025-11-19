@@ -1,0 +1,125 @@
+<nav class="navbar">
+  <div class="navbar-content">
+    <!-- Sidebar toggle button -->
+    <button class="sidebar-toggle" (click)="toggleSidebar()">☰</button>
+
+    <!-- Brand -->
+    <a class="navbar-brand" routerLink="/layout/dashboard">PPTPL</a>
+
+    <!-- User info -->
+    <div class="navbar-right user-section">
+      <span class="user-info">Logged in as <strong>{{ username }}</strong></span>
+      <div class="avatar-container">
+        <img
+          [src]="userAvatar"
+          alt="User Avatar"
+          class="user-avatar"
+          onerror="this.style.display='none'"
+        />
+        <div class="avatar-fallback" *ngIf="!userAvatar">JD</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="layout-body">
+  <!-- Sidebar Overlay -->
+  <div
+    class="sidebar-overlay"
+    [class.active]="sidebarOpen"
+    (click)="closeSidebar()"
+  ></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.open]="sidebarOpen">
+    <div class="sidebar-header">
+      <h3>Menu</h3>
+      <button class="close-sidebar" (click)="closeSidebar()">&times;</button>
+    </div>
+
+    <nav class="sidebar-nav">
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/layout/dashboard"
+            routerLinkActive="active"
+            (click)="closeSidebar()"
+            >Dashboard</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/layout/projects"
+            routerLinkActive="active"
+            (click)="closeSidebar()"
+            >Projects</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/layout/ticketing"
+            routerLinkActive="active"
+            (click)="closeSidebar()"
+            >Ticket Tracker</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/layout/task-tracker"
+            routerLinkActive="active"
+            (click)="closeSidebar()"
+            >Task Tracker</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/layout/masters"
+            routerLinkActive="active"
+            (click)="closeSidebar()"
+            >Master</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/Setting"
+            routerLinkActive="active"
+            (click)="closeSidebar()"
+            >Setting</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <button class="signout-btn" (click)="signOut()">Sign Out</button>
+        <div class="avatar-container small">
+          <img
+            [src]="userAvatar"
+            alt="User Avatar"
+            class="user-avatar"
+            onerror="this.style.display='none'"
+          />
+          <div class="avatar-fallback" *ngIf="!userAvatar">JD</div>
+        </div>
+        <div class="user-details">
+          <span class="user-name">{{ username }}</span>
+          <span class="user-role">Administrator</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content" [class.sidebar-open]="sidebarOpen">
+    <div class="content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

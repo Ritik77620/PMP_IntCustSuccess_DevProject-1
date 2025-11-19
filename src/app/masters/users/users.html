@@ -1,0 +1,63 @@
+<div class="p-4 space-y-6">
+  <h1 class="text-2xl font-bold">User Master</h1>
+
+  <div class="flex space-x-2">
+    <button class="bg-blue-600 text-white px-4 py-2 rounded" (click)="openForm()">+ Add New User</button>
+  </div>
+
+  <div *ngIf="showForm" class="mt-4 p-4 border rounded shadow space-y-4">
+    <h2 class="text-xl font-semibold">{{ userForm.value._id ? 'Edit User' : 'Add New User' }}</h2>
+
+    <input class="border p-2 rounded w-full" formControlName="name" placeholder="Name">
+    <input class="border p-2 rounded w-full" formControlName="userId" placeholder="User ID">
+    <input class="border p-2 rounded w-full" type="password" formControlName="passCode" placeholder="PassCode">
+    
+    <select class="border p-2 rounded w-full" formControlName="role">
+      <option value="">Select Role</option>
+      <option *ngFor="let r of roles" [value]="r._id">{{ r.name }}</option>
+    </select>
+
+    <input class="border p-2 rounded w-full" type="email" formControlName="email" placeholder="Email">
+
+    <div class="flex space-x-2">
+      <button class="bg-blue-600 text-white px-4 py-2 rounded" (click)="saveUser()" [disabled]="isSaving">
+        {{ isSaving ? 'Saving...' : 'Save' }}
+      </button>
+      <button class="bg-gray-300 px-4 py-2 rounded" (click)="cancelForm()">Cancel</button>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <table class="min-w-full border border-gray-200">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="border p-2">Name</th>
+          <th class="border p-2">User ID</th>
+          <th class="border p-2">Role</th>
+          <th class="border p-2">Email</th>
+          <th class="border p-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="!loading; else loadingTpl">
+        <tr *ngFor="let u of users">
+          <td class="border p-2">{{ u.name }}</td>
+          <td class="border p-2">{{ u.userId }}</td>
+          <td class="border p-2">
+            <span class="px-2 py-1 bg-gray-100 rounded text-sm">{{ u.roleName }}</span>
+          </td>
+          <td class="border p-2">{{ u.email }}</td>
+          <td class="border p-2 space-x-2">
+            <button class="px-2 py-1 border rounded" (click)="openForm(u)">Edit</button>
+            <button class="px-2 py-1 border rounded bg-red-600 text-white" (click)="deleteUser(u._id!)">Delete</button>
+          </td>
+        </tr>
+        <tr *ngIf="users.length === 0">
+          <td colspan="5" class="text-center py-4 text-gray-500">No users found</td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #loadingTpl>
+      <p class="py-4">Loading users...</p>
+    </ng-template>
+  </div>
+</div>

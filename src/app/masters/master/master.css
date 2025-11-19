@@ -1,0 +1,160 @@
+/* 🌟 Page Container */
+.p-10 {
+  padding: 2.5rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f9fafb, #eef2ff);
+  font-family: 'Poppins', 'Inter', sans-serif;
+}
+
+/* 🌟 Page Title Section */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #111827;
+  background: linear-gradient(90deg, #2563eb, #9333ea);
+  -webkit-text-fill-color: white;
+  margin-bottom: 0.25rem;
+}
+
+p {
+  color: #6b7280;
+  font-size: 1.125rem;
+}
+
+/* 🌟 Grid Layout for Cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* 🌟 Master Card Styles */
+.master-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 1.2rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 231, 235, 0.6);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+
+.master-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(37, 99, 235, 0.25);
+}
+
+/* 🌟 Inner content */
+.master-card .p-6 {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+/* 🌟 Animated Icon Wrapper */
+.icon-wrapper {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: all 0.4s ease;
+  transform: scale(1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.icon-wrapper i {
+  font-size: 1.8rem;
+  color: white;
+  transition: transform 0.3s ease;
+}
+
+.master-card:hover .icon-wrapper {
+  transform: scale(1.15) rotate(8deg);
+}
+
+/* 🌟 Icon Color Variations */
+.icon-1 {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+.icon-2 {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+.icon-3 {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+.icon-4 {
+  background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+.icon-5 {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+.icon-6 {
+  background: linear-gradient(135deg, #14b8a6, #0d9488);
+}
+
+/* 🌟 Card Title */
+h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.3px;
+}
+
+/* 🌟 Description */
+.text-gray-500,
+.master-card p {
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* 🌟 Button Styles */
+button {
+  width: 100%;
+  background: linear-gradient(90deg, #2563eb, #4f46e5);
+  color: white;
+  padding: 0.75rem 0;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
+}
+
+button:hover {
+  background: linear-gradient(90deg, #1e40af, #3730a3);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(37, 99, 235, 0.45);
+}
+
+/* 🌟 Glow effect on hover */
+.master-card:hover button {
+  box-shadow: 0 0 18px rgba(59, 130, 246, 0.5);
+}
+
+/* 🌟 Responsive Tweaks */
+@media (max-width: 768px) {
+  .p-10 {
+    padding: 1.5rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}

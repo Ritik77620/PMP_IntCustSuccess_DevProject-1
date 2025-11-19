@@ -1,0 +1,35 @@
+<div class="dashboard-container">
+  <h1>Project Dashboard</h1>
+  
+  <div class="stats-grid">
+    <div *ngFor="let card of statCards" 
+         class="stat-card" 
+         [class.gradient-bg]="card.gradient">
+      <div class="card-content">
+        <div class="card-icon">{{ card.icon }}</div>
+        <div class="card-text">
+          <h3 class="card-title">{{ card.title }}</h3>
+          <p class="card-value">{{ card.value }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-container">
+    <div class="chart-section">
+      <h2>Project Distribution</h2>
+      <div class="chart-placeholder">
+        <!-- Add your chart component here -->
+        <p>Project Pie Chart: {{ projectPieData | json }}</p>
+      </div>
+    </div>
+    
+    <div class="chart-section">
+      <h2>Ticket Status</h2>
+      <div class="chart-placeholder">
+        <!-- Add your chart component here -->
+        <p>Ticket Pie Chart: {{ ticketPieData | json }}</p>
+      </div>
+    </div>
+  </div>
+</div>
